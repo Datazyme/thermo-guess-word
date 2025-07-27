@@ -2,22 +2,23 @@
     import { onMount } from "svelte";
   
     let words = ["svelte", "tailwind", "javascript", "frontend", "developer"];
-    let secretWord = "";
-    let guessedLetters = new Set();
+    let secretWord = ""; //randomly selected word
+    let guessedLetters = new Set(); //stores guessed letters
     let wrongGuesses = 0;
     let maxWrongGuesses = 6;
     let gameOver = false;
     let gameWon = false;
     let displayWord = ""; //added this show correct guesses of letters in secret word and display it in a seperate section.
-  
+
+    //chooses random word and resets number of guesses
     function chooseRandomWord() {
       secretWord = words[Math.floor(Math.random() * words.length)].toUpperCase();
       guessedLetters.clear();
       updateDisplayWord();
     }
   
-  
-    // @ts-ignore
+    //takes user guessed letter, checks if letter added or not and updates display/win/lose/number of guesses accordingly
+    //letter here is passed from the for/each block in the "letter buttons" <div> styled below
     function guessLetter(letter) {
       if (gameOver || gameWon || guessedLetters.has(letter)) return;
   
@@ -82,7 +83,7 @@
       <p class="text-red-400 text-xl font-bold mb-4">😢 You Lost! The word was "{secretWord}"</p>
     {/if}
   
-    <!-- Letter Buttons -->
+    <!-- Letter Buttons , letter is used in the guessLetter function above-->
     <div class="grid grid-cols-9 gap-2 mb-6">
       {#each "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("") as letter}
         <button
