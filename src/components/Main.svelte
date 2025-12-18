@@ -1,8 +1,18 @@
 <script>
     import { onMount } from "svelte";
   
-    let words = ["svelte", "tailwind", "javascript", "frontend", "developer"];
+    let words = [
+      { word: "thermocycler", clue: "An instrument that cycles between temeperatures", image:"/images/nhsFluoresceinKit.jpg"},
+      { word: "dnapolymerase", clue: "An enzyme that synthesizes long chains of nucleic acids", image:"/images/nhsFluoresceinKit.jpg"},
+      { word: "oligonucleotide", clue: "A short, single-stranded nucleic acid chain", image:"/images/nhsFluoresceinKit.jpg"},
+      { word: "nucleotide", clue: "A necessary componenet of a PCR reaction", image:"/images/nhsFluoresceinKit.jpg"},
+      { word: "buffer", clue: "A solution that resists change in pH", image:"/images/nhsFluoresceinKit.jpg" },
+      { word: "fluorophore", clue: "A compound used in immunofluorescence microscopy", image:"/images/nhsFluoresceinKit.jpg"}
+    ];
+    //let words = [{}]
     let secretWord = ""; //randomly selected word
+    let clue = "";
+    let clueImage = "";
     let guessedLetters = new Set(); //stores guessed letters
     let wrongGuesses = 0;
     let maxWrongGuesses = 6;
@@ -12,13 +22,22 @@
 
     //chooses random word and resets number of guesses
     function chooseRandomWord() {
-      secretWord = words[Math.floor(Math.random() * words.length)].toUpperCase();
+      const randomItem = words[Math.floor(Math.random() * words.length)];
+      
+      secretWord = randomItem.word.toUpperCase();
+      clue = randomItem.clue;
+      clueImage = randomItem.image;
+      
       guessedLetters.clear();
       updateDisplayWord();
     }
+
   
     //takes user guessed letter, checks if letter added or not and updates display/win/lose/number of guesses accordingly
     //letter here is passed from the for/each block in the "letter buttons" <div> styled below
+    /**
+	 * @param {string} letter
+	 */
     function guessLetter(letter) {
       if (gameOver || gameWon || guessedLetters.has(letter)) return;
   
@@ -65,8 +84,18 @@
   </script>
   
   <main class="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white pr-4 pl-4">
+    <h1 class="text-3xl font-bold mb-4">Thermo Fisher Scientific</h1>
     <h1 class="text-3xl font-bold mb-4">Word Guessing Game</h1>
     <p class="text-lg mb-4">Guess the word letter by letter!</p>
+    <p class="text-yellow-300 italic mb-6">Clue: {clue}</p>
+
+{#if gameWon}
+  <img
+    src={clueImage}
+    alt="Word hint"
+  />
+{/if}
+
   
     <!-- Display Word with Spaces -->
     <div class="text-3xl font-mono tracking-wide mb-6">
