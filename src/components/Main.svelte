@@ -2,12 +2,14 @@
     import { onMount } from "svelte";
   
     let words = [
-      { word: "thermocycler", clue: "An instrument that cycles between temeperatures", image:"/images/nhsFluoresceinKit.jpg"},
-      { word: "dnapolymerase", clue: "An enzyme that synthesizes long chains of nucleic acids", image:"/images/nhsFluoresceinKit.jpg"},
-      { word: "oligonucleotide", clue: "A short, single-stranded nucleic acid chain", image:"/images/nhsFluoresceinKit.jpg"},
-      { word: "nucleotide", clue: "A necessary componenet of a PCR reaction", image:"/images/nhsFluoresceinKit.jpg"},
-      { word: "buffer", clue: "A solution that resists change in pH", image:"/images/nhsFluoresceinKit.jpg" },
-      { word: "fluorophore", clue: "A compound used in immunofluorescence microscopy", image:"/images/nhsFluoresceinKit.jpg"}
+      { word: " thermal cycler", clue: "An instrument that cycles between temeperatures", image:"/images/thermalCyclers.jpeg"},
+      { word: " DNA polymerase", clue: "An enzyme that synthesizes long chains of nucleic acids from a template", image:"/images/ThermoTaqPolymerases.jpg"},
+      { word: " EGel Power Snap Electrophoresis System", clue: "A benchtop system that seamlessly integrates DNA sample separation and gel imaging into one workflow", image:"/images/eGelElectrophoresis.jpg"},
+      { word: " Qubit Fluorometer", clue: "An instrument that delivers fast, accurate, sensitive, and specific quantification of DNA, RNA, protein, and endotoxin detection", image:"/images/qubit.jpg"},
+      { word: " real time PCR", clue: "A laboratory technique used to amplify and simultaneously quantify a targeted DNA molecule", image:"/images/RTpcrMachine.jpg"},
+      { word: " fluorophore", clue: "A compound used in immunofluorescence microscopy", image:"/images/nhsFluoresceinKit.jpg"},
+      { word: " electrophoresis", clue: "A technique used to separate molecules based on their charges", image:"/images/electrophoresis.jpg"},
+      { word: " SYBR Safe", clue: "A compound used to stain DNA in agarose gels to visualize it under UV or blue light", image:"/images/sybrSafe.jpg"}
     ];
     //let words = [{}]
     let secretWord = ""; //randomly selected word
@@ -15,7 +17,7 @@
     let clueImage = "";
     let guessedLetters = new Set(); //stores guessed letters
     let wrongGuesses = 0;
-    let maxWrongGuesses = 6;
+    let maxWrongGuesses = 3;
     let gameOver = false;
     let gameWon = false;
     let displayWord = ""; //added this show correct guesses of letters in secret word and display it in a seperate section.
@@ -31,6 +33,7 @@
       guessedLetters.clear();
       updateDisplayWord();
     }
+    
 
   
     //takes user guessed letter, checks if letter added or not and updates display/win/lose/number of guesses accordingly
@@ -55,7 +58,11 @@
     function updateDisplayWord() {
       displayWord = secretWord
         .split("")
-        .map(letter => (guessedLetters.has(letter) ? letter : "_"))
+        .map(letter => {
+          if (letter === " ") return "\n"; //keeps spaces visible
+          return guessedLetters.has(letter) ? letter : "_";
+        })
+          //(letter => (guessedLetters.has(letter) ? letter : "_"))
         .join(" ");
     }
   
@@ -90,7 +97,7 @@
     <p class="text-yellow-300 italic mb-6">Clue: {clue}</p>
 
 {#if gameWon}
-  <img
+  <img class="h-sm w-sm"
     src={clueImage}
     alt="Word hint"
   />
@@ -98,7 +105,7 @@
 
   
     <!-- Display Word with Spaces -->
-    <div class="text-3xl font-mono tracking-wide mb-6">
+    <div class="text-3xl font-mono tracking-wide mb-6 items-center justify-center whitespace-pre">
       {displayWord}
     </div>
   
