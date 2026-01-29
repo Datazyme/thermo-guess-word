@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+    import "../app.css";
   
     let words = [
       { word: " thermal cycler", clue: "An instrument that cycles between temeperatures", image:"/images/thermalCyclers.jpeg"},
@@ -91,17 +92,28 @@
   </script>
   
   <main class="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white pr-4 pl-4">
-    <h1 class="text-3xl font-bold mb-4">Thermo Fisher Scientific</h1>
-    <h1 class="text-3xl font-bold mb-4">Word Guessing Game</h1>
-    <p class="text-lg mb-4">Guess the word letter by letter!</p>
-    <p class="text-yellow-300 italic mb-6">Clue: {clue}</p>
+    <h1 class="text-3xl font-bold mb-4 text-red-500">Thermo Fisher Scientific</h1>
+    <h1 class="text-3xl font-bold mb-4 text-indigo-300">Word Guessing Game</h1>
+    <p class="text-lg mb-4 text-indigo-300">Guess the word letter by letter!</p>
+    <p class="text-yellow-300 italic mb-6 text-2xl">Clue: {clue}</p>
 
-{#if gameWon}
-  <img class="h-sm w-sm"
-    src={clueImage}
-    alt="Word hint"
-  />
-{/if}
+
+    {#if gameWon}
+      <div class="pyro">
+        <div class="before"></div>
+        <div class="after"></div>
+       </div>
+      <img class="h-sm w-sm border-6 border-indigo-500 border-solid border rounded-lg"
+      src={clueImage}
+      alt="Word hint"
+      />
+      
+    {:else}
+     <img class="h-sm w-sm border-6 border-indigo-500 border-solid border rounded-lg blur-lg"
+      src={clueImage}
+      alt="Word hint"
+      />
+    {/if}
 
   
     <!-- Display Word with Spaces -->
@@ -120,12 +132,12 @@
     {/if}
   
     <!-- Letter Buttons , letter is used in the guessLetter function above-->
-    <div class="grid grid-cols-9 gap-2 mb-6">
+    <div class="grid grid-cols-13 gap-2 mb-6">
       {#each "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("") as letter}
         <button
           on:click={() => guessLetter(letter)}
           disabled={guessedLetters.has(letter)}
-          class="w-10 h-10 bg-gray-700 hover:bg-blue-500 text-white font-bold rounded disabled:opacity-50"
+          class="w-11 h-11 bg-indigo-500 hover:bg-blue-500 text-black font-bold rounded disabled:opacity-50"
         >
           {letter}
         </button>
