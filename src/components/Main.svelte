@@ -1,17 +1,20 @@
 <script>
     import { onMount } from "svelte";
     import "../app.css";
+    import { standardDNAPolymerases } from '$lib/index'
   
-    let words = [
-      { word: " thermal cycler", clue: "An instrument that cycles between temeperatures", image:"/images/thermalCyclers.jpeg"},
-      { word: " DNA polymerase", clue: "An enzyme that synthesizes long chains of nucleic acids from a template", image:"/images/ThermoTaqPolymerases.jpg"},
-      { word: " EGel Power Snap Electrophoresis System", clue: "A benchtop system that seamlessly integrates DNA sample separation and gel imaging into one workflow", image:"/images/eGelElectrophoresis.jpg"},
-      { word: " Qubit Fluorometer", clue: "An instrument that delivers fast, accurate, sensitive, and specific quantification of DNA, RNA, protein, and endotoxin detection", image:"/images/qubit.jpg"},
-      { word: " real time PCR", clue: "A laboratory technique used to amplify and simultaneously quantify a targeted DNA molecule", image:"/images/RTpcrMachine.jpg"},
-      { word: " fluorophore", clue: "A compound used in immunofluorescence microscopy", image:"/images/nhsFluoresceinKit.jpg"},
-      { word: " electrophoresis", clue: "A technique used to separate molecules based on their charges", image:"/images/electrophoresis.jpg"},
-      { word: " SYBR Safe", clue: "A compound used to stain DNA in agarose gels to visualize it under UV or blue light", image:"/images/sybrSafe.jpg"}
-    ];
+    // let words = [
+    //   { word: " thermal cycler", clue: "An instrument that cycles between temeperatures", image:"/images/thermalCyclers.jpeg"},
+    //   { word: " DNA polymerase", clue: "An enzyme that synthesizes long chains of nucleic acids from a template", image:"/images/ThermoTaqPolymerases.jpg"},
+    //   { word: " EGel Power Snap Electrophoresis System", clue: "A benchtop system that seamlessly integrates DNA sample separation and gel imaging into one workflow", image:"/images/eGelElectrophoresis.jpg"},
+    //   { word: " Qubit Fluorometer", clue: "An instrument that delivers fast, accurate, sensitive, and specific quantification of DNA, RNA, protein, and endotoxin detection", image:"/images/qubit.jpg"},
+    //   { word: " real time PCR", clue: "A laboratory technique used to amplify and simultaneously quantify a targeted DNA molecule", image:"/images/RTpcrMachine.jpg"},
+    //   { word: " fluorophore", clue: "A compound used in immunofluorescence microscopy", image:"/images/nhsFluoresceinKit.jpg"},
+    //   { word: " electrophoresis", clue: "A technique used to separate molecules based on their charges", image:"/images/electrophoresis.jpg"},
+    //   { word: " SYBR Safe", clue: "A compound used to stain DNA in agarose gels to visualize it under UV or blue light", image:"/images/sybrSafe.jpg"}
+    // ];
+
+
     //let words = [{}]
     let secretWord = ""; //randomly selected word
     let clue = "";
@@ -25,7 +28,7 @@
 
     //chooses random word and resets number of guesses
     function chooseRandomWord() {
-      const randomItem = words[Math.floor(Math.random() * words.length)];
+      const randomItem = standardDNAPolymerases[Math.floor(Math.random() * standardDNAPolymerases.length)];
       
       secretWord = randomItem.word.toUpperCase();
       clue = randomItem.clue;
@@ -91,7 +94,7 @@
     });
   </script>
   
-  <main class="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white pr-4 pl-4">
+  <main class="max-h flex flex-col items-center justify-center bg-gray-900 text-white pr-4 pl-4">
     <h1 class="text-3xl font-bold mb-4 text-red-500">Thermo Fisher Scientific</h1>
     <h1 class="text-3xl font-bold mb-4 text-indigo-300">Word Guessing Game</h1>
     <p class="text-lg mb-4 text-indigo-300">Guess the word letter by letter!</p>
