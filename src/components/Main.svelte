@@ -1,7 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import "../app.css";
-    import { standardDNAPolymerases } from '$lib/index'
+    import { wordGroups } from '$lib'
   
     // let words = [
     //   { word: " thermal cycler", clue: "An instrument that cycles between temeperatures", image:"/images/thermalCyclers.jpeg"},
@@ -15,7 +15,8 @@
     // ];
 
 
-    //let words = [{}]
+    let selectedGroup = 'words'
+
     let secretWord = ""; //randomly selected word
     let clue = "";
     let clueImage = "";
@@ -25,10 +26,11 @@
     let gameOver = false;
     let gameWon = false;
     let displayWord = ""; //added this show correct guesses of letters in secret word and display it in a seperate section.
-
+    
     //chooses random word and resets number of guesses
     function chooseRandomWord() {
-      const randomItem = standardDNAPolymerases[Math.floor(Math.random() * standardDNAPolymerases.length)];
+      const group = wordGroups[selectedGroup]
+      const randomItem = group[Math.floor(Math.random() * group.length)];
       
       secretWord = randomItem.word.toUpperCase();
       clue = randomItem.clue;
@@ -99,6 +101,19 @@
     <h1 class="text-3xl font-bold mb-4 text-indigo-300">Word Guessing Game</h1>
     <p class="text-lg mb-4 text-indigo-300">Guess the word letter by letter!</p>
     <p class="text-yellow-300 italic mb-6 text-2xl">Clue: {clue}</p>
+
+    <label class="mb-2 font-semibold">Choose category:</label>
+
+    <select
+      bind:value={selectedGroup}
+      class="mb-4 px-3 py-2 bg-gray-800 border border-gray-600 rounded"
+    >
+      {#each Object.keys(wordGroups) as group}
+      <option value={group}>
+        {group}
+      </option>
+        {/each}
+    </select>
 
 
     {#if gameWon}
