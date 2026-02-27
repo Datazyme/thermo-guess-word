@@ -44,9 +44,7 @@
   
     //takes user guessed letter, checks if letter added or not and updates display/win/lose/number of guesses accordingly
     //letter here is passed from the for/each block in the "letter buttons" <div> styled below
-    /**
-	 * @param {string} letter
-	 */
+
     function guessLetter(letter) {
       if (gameOver || gameWon || guessedLetters.has(letter)) return;
   
@@ -96,51 +94,52 @@
     });
   </script>
   
-  <main class="max-h flex flex-col items-center justify-center bg-gray-900 text-white pr-4 pl-4">
-    <h1 class="text-3xl font-bold mb-4 text-red-500">Thermo Fisher Scientific</h1>
-    <h1 class="text-3xl font-bold mb-4 text-indigo-300">Word Guessing Game</h1>
-    <p class="text-lg mb-4 text-indigo-300">Guess the word letter by letter!</p>
-    <p class="text-yellow-300 italic mb-6 text-2xl">Clue: {clue}</p>
+  <main class="flex flex-col flex-1 bg-gray-900 p-4 overflow-auto">
+    <section id="Titles" class="flex flex-col items-center justify-center text-white pr-4 pl-4">
+      <h1 class="text-3xl font-bold mb-4 text-red-500 pt-8">Thermo Fisher Scientific</h1>
+      <h1 class="text-3xl font-bold mb-4 text-indigo-300">Word Guessing Game</h1>
+      <p class="text-lg mb-4 text-indigo-300">Guess the word letter by letter!</p>
+      <p class="text-yellow-300 italic mb-6 text-2xl">Clue: {clue}</p>
+    </section>
 
-    <label class="mb-2 font-semibold">Choose category:</label>
+    <section id="wordSelection" class="flex flex-row justify-center text-yellow-300 text-2xl">
+      <h3 class="text-yellow-300 text-2xl p-4">Choose category:</h3>
+      <select bind:value={selectedGroup}
+        class="italic mb-6 mb-4 px-3 py-2 bg-gray-800 border border-gray-600 rounded">
+          {#each Object.keys(wordGroups) as group}
+        <option value={group}>
+          {group}
+        </option>
+          {/each}
+      </select>
+    </section>
 
-    <select
-      bind:value={selectedGroup}
-      class="mb-4 px-3 py-2 bg-gray-800 border border-gray-600 rounded"
-    >
-      {#each Object.keys(wordGroups) as group}
-      <option value={group}>
-        {group}
-      </option>
-        {/each}
-    </select>
-
-
-    {#if gameWon}
+    <section id="picture" class="flex flex-row justify-center pt-6 pr-6 m-2" >
+      {#if gameWon}
       <div class="pyro">
         <div class="before"></div>
         <div class="after"></div>
-       </div>
+      </div>
       <img class="h-sm w-sm border-6 border-indigo-500 border-solid border rounded-lg"
       src={clueImage}
       alt="Word hint"
       />
       
-    {:else}
-     <img class="h-sm w-sm border-6 border-indigo-500 border-solid border rounded-lg blur-lg"
+      {:else}
+      <img class="h-sm w-sm border-6 border-indigo-500 border-solid border rounded-lg blur-lg"
       src={clueImage}
       alt="Word hint"
       />
-    {/if}
-
-  
-    <!-- Display Word with Spaces -->
-    <div class="text-3xl font-mono tracking-wide mb-6 items-center justify-center whitespace-pre">
+      {/if}
+          <!-- Display Word with Spaces -->
+    <div class="text-3xl text-white pl-6 font-mono tracking-wide mb-6 items-center justify-center whitespace-pre">
       {displayWord}
     </div>
-  
-    <!-- Wrong Guess Count -->
-    <p class="text-red-400 mb-4">Wrong Guesses: {wrongGuesses} / {maxWrongGuesses}</p>
+    </section>
+
+    <section id="letterkeys" class="flex flex-col justify-center items-center m-4">
+      <!-- Wrong Guess Count -->
+    <p class="text-red-400 m-4 text-xl">Wrong Guesses: {wrongGuesses} / {maxWrongGuesses}</p>
   
     <!-- Game Result Messages -->
     {#if gameWon}
@@ -150,7 +149,7 @@
     {/if}
   
     <!-- Letter Buttons , letter is used in the guessLetter function above-->
-    <div class="grid grid-cols-13 gap-2 mb-6">
+    <div class="grid grid-cols-13 gap-2">
       {#each "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("") as letter}
         <button
           on:click={() => guessLetter(letter)}
@@ -161,13 +160,22 @@
         </button>
       {/each}
     </div>
-  
-    <!-- Restart Button -->
-    <button
-      on:click={resetGame}
-      class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded"
-    >
+    </section>
+
+    <section id="reset" class="py-2.5 flex justify-center items-center">
+      <!-- Restart Button -->
+      <button
+        on:click={resetGame}
+        class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded"
+      >
       Restart Game
-    </button>
+      </button>
+    </section>
+  
+
+  
+
+  
+
   </main>
 

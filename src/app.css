@@ -3,8 +3,8 @@
 body {
   margin: 0;
   padding: 0;
-  background: #000;
-  overflow: hidden; }
+  background: rgb(17 24 39);
+  }
 
 .pyro {
   position: fixed;
@@ -12,7 +12,6 @@ body {
   pointer-events: none;
   overflow: hidden;
 }
-
 
 .pyro > .before, .pyro > .after {
   position: absolute;
