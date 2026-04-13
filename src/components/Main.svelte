@@ -15,11 +15,12 @@
     // ];
 
 
-    let selectedGroup = 'words'
+    let selectedGroup = 'random'
 
     let secretWord = ""; //randomly selected word
     let clue = "";
     let clueImage = "";
+    let clueLink = "";
     let guessedLetters = new Set(); //stores guessed letters
     let wrongGuesses = 0;
     let maxWrongGuesses = 3;
@@ -35,6 +36,7 @@
       secretWord = randomItem.word.toUpperCase();
       clue = randomItem.clue;
       clueImage = randomItem.image;
+      clueLink = randomItem.link;
       
       guessedLetters.clear();
       updateDisplayWord();
@@ -96,7 +98,7 @@
   
   <main class="flex flex-col flex-1 bg-gray-900 p-4 overflow-auto">
     <section id="Titles" class="flex flex-col items-center justify-center text-white pr-4 pl-4">
-      <h1 class="text-3xl font-bold mb-4 text-red-500 pt-8">Thermo Fisher Scientific</h1>
+      <h1 class="text-3xl font-bold mb-4 text-red-500 pt-8">Thermo Fisher Scientific </h1>
       <h1 class="text-3xl font-bold mb-4 text-indigo-300">Word Guessing Game</h1>
       <p class="text-lg mb-4 text-indigo-300">Guess the word letter by letter!</p>
       <p class="text-yellow-300 italic mb-6 text-2xl">Clue: {clue}</p>
@@ -104,7 +106,7 @@
 
     <section id="wordSelection" class="flex flex-row justify-center text-yellow-300 text-2xl">
       <h3 class="text-yellow-300 text-2xl p-4">Choose category:</h3>
-      <select bind:value={selectedGroup}
+      <select id="dropdown" bind:value={selectedGroup}
         class="italic mb-6 mb-4 px-3 py-2 bg-gray-800 border border-gray-600 rounded">
           {#each Object.keys(wordGroups) as group}
         <option value={group}>
@@ -112,24 +114,27 @@
         </option>
           {/each}
       </select>
+      {resetGame()}
     </section>
 
-    <section id="picture" class="flex flex-row justify-center pt-6 pr-6 m-2" >
+    <section id="picture" class="flex flex-col sm:flex-row justify-center pt-6 pr-6 m-2" >
       {#if gameWon}
       <div class="pyro">
         <div class="before"></div>
         <div class="after"></div>
       </div>
-      <img class="h-sm w-sm border-6 border-indigo-500 border-solid border rounded-lg"
+      <img class="h-70 w-70 border-6 border-indigo-500 border-solid border rounded-lg"
       src={clueImage}
       alt="Word hint"
       />
       
       {:else}
-      <img class="h-sm w-sm border-6 border-indigo-500 border-solid border rounded-lg blur-lg"
+      <img class="h-70 w-70 border-6 border-indigo-500 border-solid border rounded-lg blur-lg"
       src={clueImage}
       alt="Word hint"
+      href={clueLink}
       />
+      <!-- <a href={clueLink}>Learn More</a> -->
       {/if}
           <!-- Display Word with Spaces -->
     <div class="text-3xl text-white pl-6 font-mono tracking-wide mb-6 items-center justify-center whitespace-pre">
@@ -171,11 +176,5 @@
       Restart Game
       </button>
     </section>
-  
-
-  
-
-  
-
   </main>
 
