@@ -35,7 +35,7 @@ export const wordGroups = {
       clue: "A compound used to stain DNA in agarose gels to visualize it under UV or blue light", 
       image:"/images/sybrSafe.jpg", 
       link: "https://www.thermofisher.com/order/catalog/product/S33102?SID=srch-srp-S33102"},
-    { word:"Real time Polymerase Chain Reaction",
+    { word:" Real time Polymerase Chain Reaction",
       clue:"The ability to monitor the progress of a PCR in real time, collecting data over every cycle",
       image:"/images/rtPCRreaction.jpg", 
       link: "https://www.thermofisher.com/ca/en/home/life-science/pcr/real-time-pcr/real-time-pcr-learning-center/real-time-pcr-basics/essentials-real-time-pcr.html"
@@ -96,6 +96,11 @@ export const wordGroups = {
       clue: " A Real Time PCR system designed to offer superior performance, maximum dye versatility, and enhanced security options", 
       image:"/images/QuantStudio5.jpg", 
       link: "https://www.thermofisher.com/order/catalog/product/A28569?SID=srch-srp-A28569"},
+    { word: " Countess Automated Cell Counter",
+      clue: "An instrument provides highly accurate and precise cell counts in brightfield or fluorescence",
+      image: "/images/Countess.jpg",
+      link: "https://www.thermofisher.com/ca/en/home/life-science/cell-analysis/cell-analysis-instruments/automated-cell-counters.html?SID=fr-countess2-main"
+    }
   ]
 };
 

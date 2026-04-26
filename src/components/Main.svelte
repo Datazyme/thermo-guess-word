@@ -143,13 +143,13 @@
   
       {/if}
           <!-- Display Word with Spaces -->
-      <div class="text-sm sm:text-xl xl:text-3xl text-white pl-6 font-mono tracking-wide mb-4 items-center justify-center whitespace-pre">
+      <div class="text-sm sm:text-xl xl:text-3xl text-white mt-4 pl-6 font-mono tracking-wide items-center justify-center whitespace-pre">
         {displayWord}
       </div>
       
     </section>
 
-    <section id="letterkeys" class="flex flex-col justify-center items-center m-4">
+    <section id="letterkeys" class="flex flex-col justify-center items-center">
       <!-- Wrong Guess Count -->
     <p class="text-red-400 m-4 text-xl">Wrong Guesses: {wrongGuesses} / {maxWrongGuesses}</p>
   
@@ -161,12 +161,12 @@
     {/if}
   
     <!-- Letter Buttons , letter is used in the guessLetter function above-->
-    <div class="grid grid-cols-13 gap-2">
+    <div class="grid grid-cols-9 xl:grid-cols-13 gap-2">
       {#each "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("") as letter}
         <button
           on:click={() => guessLetter(letter)}
           disabled={guessedLetters.has(letter)}
-          class="w-6 h-6 md:w-11 md:h-11 bg-indigo-500 hover:bg-blue-500 text-black font-bold rounded disabled:opacity-50"
+          class="w-6 h-6 xl:w-11 xl:h-11 bg-indigo-500 hover:bg-blue-500 text-black font-bold rounded disabled:opacity-50"
         >
           {letter}
         </button>
@@ -178,7 +178,7 @@
       <!-- Restart Button -->
       <button
         on:click={resetGame}
-        class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded"
+        class="px-4 mt-2 py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded"
       >
       Restart Game
       </button>
