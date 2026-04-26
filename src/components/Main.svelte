@@ -143,7 +143,7 @@
   
       {/if}
           <!-- Display Word with Spaces -->
-      <div class=" text-xl xl:text-3xl text-white pl-6 font-mono tracking-wide mb-4 items-center justify-center whitespace-pre">
+      <div class="text-sm sm:text-xl xl:text-3xl text-white pl-6 font-mono tracking-wide mb-4 items-center justify-center whitespace-pre">
         {displayWord}
       </div>
       
