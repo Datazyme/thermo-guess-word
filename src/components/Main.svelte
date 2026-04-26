@@ -37,13 +37,13 @@
       clue = randomItem.clue;
       clueImage = randomItem.image;
       clueLink = randomItem.link;
+      console.log(randomItem.link);
       
-      guessedLetters.clear();
+      guessedLetters = new Set();
       updateDisplayWord();
     }
-    
 
-  
+      
     //takes user guessed letter, checks if letter added or not and updates display/win/lose/number of guesses accordingly
     //letter here is passed from the for/each block in the "letter buttons" <div> styled below
 
@@ -84,7 +84,7 @@
     }
   
     function resetGame() {
-      guessedLetters.clear();
+      guessedLetters = new Set();
       wrongGuesses = 0;
       gameOver = false;
       gameWon = false;
@@ -101,12 +101,13 @@
       <h1 class="text-3xl font-bold mb-4 text-red-500 pt-8">Thermo Fisher Scientific </h1>
       <h1 class="text-3xl font-bold mb-4 text-indigo-300">Word Guessing Game</h1>
       <p class="text-lg mb-4 text-indigo-300">Guess the word letter by letter!</p>
-      <p class="text-yellow-300 italic mb-6 text-2xl">Clue: {clue}</p>
+      <p class="text-yellow-300 italic mb-1 sm:mb-6 text-2xl">Clue: {clue}</p>
+      
     </section>
 
-    <section id="wordSelection" class="flex flex-row justify-center text-yellow-300 text-2xl">
-      <h3 class="text-yellow-300 text-2xl p-4">Choose category:</h3>
-      <select id="dropdown" bind:value={selectedGroup}
+    <section id="wordSelection" class="flex flex-col sm:flex-row justify-center text-yellow-300 text-sm sm:text-2xl">
+      <h3 class="text-yellow-300 text-base sm:text-2xl p-4">Choose category:</h3>
+      <select id="dropdown" bind:value={selectedGroup} on:change={resetGame}
         class="italic mb-6 mb-4 px-3 py-2 bg-gray-800 border border-gray-600 rounded">
           {#each Object.keys(wordGroups) as group}
         <option value={group}>
@@ -114,32 +115,38 @@
         </option>
           {/each}
       </select>
-      {resetGame()}
+      
     </section>
 
-    <section id="picture" class="flex flex-col sm:flex-row justify-center pt-6 pr-6 m-2" >
+    <section id="picture" class="flex flex-col xl:flex-row items-center justify-center pt-6 pr-6 m-2" >
       {#if gameWon}
       <div class="pyro">
         <div class="before"></div>
         <div class="after"></div>
       </div>
-      <img class="h-70 w-70 border-6 border-indigo-500 border-solid border rounded-lg"
+       <a href={clueLink} target="_blank">
+      <img class="h-40 w-40 sm:h-70 sm:w-70 border-6 border-indigo-500 border-solid border rounded-lg"
       src={clueImage}
       alt="Word hint"
       />
+      </a>
       
       {:else}
-      <img class="h-70 w-70 border-6 border-indigo-500 border-solid border rounded-lg blur-lg"
-      src={clueImage}
-      alt="Word hint"
-      href={clueLink}
-      />
-      <!-- <a href={clueLink}>Learn More</a> -->
+
+      <a href={clueLink} target="_blank">
+        <img class="h-40 w-40 sm:h-70 sm:w-70 border-6 border-indigo-500 border-solid border rounded-lg blur-lg"
+        src={clueImage}
+        alt="Word hint"
+        />
+      </a>
+
+  
       {/if}
           <!-- Display Word with Spaces -->
-    <div class="text-3xl text-white pl-6 font-mono tracking-wide mb-6 items-center justify-center whitespace-pre">
-      {displayWord}
-    </div>
+      <div class=" text-xl xl:text-3xl text-white pl-6 font-mono tracking-wide mb-4 items-center justify-center whitespace-pre">
+        {displayWord}
+      </div>
+      
     </section>
 
     <section id="letterkeys" class="flex flex-col justify-center items-center m-4">
@@ -159,7 +166,7 @@
         <button
           on:click={() => guessLetter(letter)}
           disabled={guessedLetters.has(letter)}
-          class="w-11 h-11 bg-indigo-500 hover:bg-blue-500 text-black font-bold rounded disabled:opacity-50"
+          class="w-6 h-6 md:w-11 md:h-11 bg-indigo-500 hover:bg-blue-500 text-black font-bold rounded disabled:opacity-50"
         >
           {letter}
         </button>
